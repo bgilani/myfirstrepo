@@ -1,0 +1,110 @@
+---
+title: "Fantasy Baseball"
+author: "Bilal Gilani"
+date: "3/5/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readxl)
+C <- read.csv("Fangraphs C.csv")
+FirstBase <- read.csv("Fangraphs 1B.csv")
+SecondBase <- read.csv("Fangraphs 2B.csv")
+ThirdBase <- read.csv("Fangraphs 3B.csv")
+SS <-read.csv("Fangraphs SS.csv")
+OF <- read.csv("Fangraphs OF.csv")
+DH <- read.csv("Fangraphs DH.csv")
+Pitchers <- read.csv("Fangraphs P.csv")
+
+```
+
+```{r}
+names(C)[1] <- "Name"
+names(FirstBase)[1] <- "Name"
+names(SecondBase)[1] <- "Name"
+names(ThirdBase)[1] <- "Name"
+names(SS)[1] <- "Name"
+names(OF)[1] <- "Name"
+names(DH)[1] <- "Name"
+names(Pitchers)[1] <- "Name"
+
+
+```
+
+```{r}
+library(tidyverse)
+
+C <- C %>%
+  mutate(Position = "C")
+
+FirstBase <- FirstBase %>%
+  mutate(Position = "1B")
+
+SecondBase <- SecondBase %>%
+  mutate(Position = "2B")
+
+ThirdBase <- ThirdBase %>%
+  mutate(Position = "3B")
+
+SS <- SS %>%
+  mutate(Position = "SS")
+
+OF <- OF %>%
+  mutate(Position = "OF")
+
+DH <- DH %>%
+  mutate(Position = "DH")
+
+Pitchers <- Pitchers %>%
+  mutate(Position = "Pitcher")
+
+```
+
+```{r}
+C <- select(C, -playerid)
+FirstBase <- select(FirstBase, -playerid)
+SecondBase <- select(SecondBase, -playerid)
+ThirdBase <- select(ThirdBase, -playerid)
+SS <- select(SS, -playerid)
+OF <- select(OF, -playerid)
+DH <- select(DH, -playerid)
+Pitchers <- select(Pitchers, -playerid)
+
+````
+
+```{r}
+Master <- full_join(C, FirstBase)
+Master <- full_join(Master, SecondBase)
+Master <- full_join(Master, ThirdBase)
+Master <- full_join(Master, SS)
+Master <- full_join(Master, OF)
+Master <- full_join(Master, DH)
+Master <- full_join(Master, Pitchers)
+
+Master <- Master[c(25,1,2,26,3:24,27:36)]
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
